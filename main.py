@@ -12,6 +12,10 @@ A status inversion — power reduced to office furniture. One word, one image,
 no explanation needed. It is funny (criterion 2), it fits a boss or manager
 (criterion 3), it is vivid and specific rather than a flat label like "great"
 or "bossy" (criterion 4), and it lands on its own (criterion 5).
+
+Revision note: the entry word is deliberately kept letter-only so the
+single-word gate cannot be bypassed by punctuation or digits smuggled in
+as part of the "word" (see validate_word).
 """
 
 import os
@@ -34,6 +38,10 @@ def validate_word(word: str) -> None:
     if any(ch.isspace() for ch in word):
         print("ERROR: entry must be a single word (no whitespace)",
               file=sys.stderr)
+        sys.exit(1)
+    if not all(ch.isalpha() for ch in word):
+        print("ERROR: entry must contain letters only (no digits, "
+              "punctuation, or symbols)", file=sys.stderr)
         sys.exit(1)
 
 
